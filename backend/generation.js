@@ -1,33 +1,23 @@
 import { REFRESH_RATE, SECONDS } from './config.js';
-import Dragon from './dragon.js';
 
-const refreshRate = REFRESH_RATE * SECONDS * 5;
-let waitingTime = 0;
-let created = Date.now();
+const refreshRate = REFRESH_RATE * SECONDS;
 
 class Generation {
     constructor() {
         this.expiration = this.calculateExpiration();
-        this.waitingTime = refreshRate;
     }
 
     calculateExpiration() {
-        return Date.now() + refreshRate;
+        const expirationPeriod = Math.floor(Math.random() * (refreshRate/2));
+        const msUntilExpiration = Math.random() < 0.5 ? refreshRate - expirationPeriod : refreshRate + expirationPeriod;
+
+        return new Date(Date.now() + msUntilExpiration);
     }
 
     newDragon() {
 
-        if (waitingTime == 0) {
-            waitingTime = refreshRate;
-            console.log(waitingTime);
-            return new Dragon({nickname: 'mimar'});
-        } else if () {
-            console.log('please wait' + waitingTime);
-            setTimeout(() => {
-                return new Dragon({nickname: 'mimar'});
-            }, waitingTime);
-        } else {
-
+        if (Date.now() > this.expiration) {
+            throw new Error(`This generation expired on ${this.expiration}`);
         }
     }
 }

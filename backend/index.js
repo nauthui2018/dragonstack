@@ -1,26 +1,9 @@
-import Dragon from './dragon.js'; 
-import Generation from './generation.js';
+import GenerationEngine from "./engine.js";
 
-const generation = new Generation();
+const engine = new GenerationEngine();
 
-const fooey = new Dragon({
-    birthdate: new Date(),
-    nickname: 'fooey'
-});
+engine.start();
 
-const baloo = new Dragon({
-    birthdate: new Date(), 
-    nickname: 'baloo',
-    traits: [{
-        traitType: 'backgroundColor',
-        traitValue: 'green'
-    }]
-});
-
-const mimar1 = generation.newDragon();
-const mimar2 = generation.newDragon();
-
-// console.log('fooey', fooey);
-// console.log('baloo', baloo);
-console.log('mimar1', mimar1);
-console.log('mimar2', mimar2);
+setTimeout(() => {
+        engine.stop()
+}, 15000)
